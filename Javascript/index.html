@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Form with Validation</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+        }
+        form {
+            max-width: 900px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+        label {
+            margin-bottom: 5px;
+            display: block;
+        }
+        input, select {
+            padding: 7px;
+            margin-top: 5px;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .col {
+            flex: 1 1 30%;
+            min-width: 200px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Registration Form</h2>
+<form id="registrationForm" onsubmit="return validateForm()">
+    <div class="form-group">
+        <label>Full Name:</label>
+        <input type="text" id="fullName" />
+        <div class="error" id="nameError"></div>
+    </div>
+
+    <div class="form-group">
+        <label>Email:</label>
+        <input type="email" id="email" />
+        <div class="error" id="emailError"></div>
+    </div>
+
+    <div class="form-group">
+        <label>Mobile Number:</label>
+        <input type="text" id="mobile" />
+        <div class="error" id="mobileError"></div>
+    </div>
+
+    <div class="form-group">
+        <label>Password:</label>
+        <input type="password" id="password" />
+        <div class="error" id="passwordError"></div>
+    </div>
+
+    <div class="form-group">
+        <label>Confirm Password:</label>
+        <input type="password" id="confirmpassword" />
+        <div class="error" id="confirmpasswordError"></div>
+    </div>
+
+    <div class="form-group">
+        <label>Gender:</label>
+        <input type="radio" name="gender" value="Male" /> Male
+        <input type="radio" name="gender" value="Female" /> Female
+        <div class="error" id="genderError"></div>
+    </div>
+    <div class="form-group">
+        <label>Qualification:</label>
+        <select id="qualification">
+            <option value="">--Select--</option>
+            <option value="High School">High School</option>
+            <option value="Diploma">Diploma</option>
+            <option value="Undergraduate">Undergraduate</option>
+            <option value="Postgraduate">Postgraduate</option>
+            <option value="PhD">PhD</option>
+        </select>
+        <span class="error" id="qualificationError"></span>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col form-group">
+                <label>Present Address:</label>
+                <input type="text" id="presentAddress">
+                <div class="error" id="presentError"></div>
+            </div>
+            <div class="col form-group">
+                <label>Country:</label>
+                <select id="presentCountry">
+                    <option value="">Select Country</option>
+                    <option value="India">India</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                </select>
+                <div class="error" id="presentCountryError"></div>
+            </div>
+            <div class="col form-group">
+                <label>State:</label>
+                <input type="text" id="presentState">
+                <div class="error" id="presentStateError"></div>
+            </div>
+            <div class="col form-group">
+                <label>City:</label>
+                <input type="text" id="presentCity">
+                <div class="error" id="presentCityError"></div>
+            </div>
+            <div class="col form-group">
+                <label>Pin Code:</label>
+                <input type="text" id="presentPincode">
+                <div class="error" id="presentPincodeError"></div>
+            </div>
+            
+        </div>
+    
+        <hr>
+        <div class="form-group">
+            <label>Permanent Address <span style="color:red;">Same As Above</span>
+                <input type="checkbox" id="sameAsAbove" onclick="copyAddress()" />
+            </label>
+        </div>
+    
+        <!-- Permanent Address Section -->
+        <div class="row">
+            <div class="col form-group">
+                <label>Permanent Address:</label>
+                <input type="text" id="permanentAddress">
+                <div class="error" id="permanentError"></div>
+            </div>
+            <div class="col form-group">
+                <label>Country:</label>
+                <select id="permanentCountry">
+                    <option value="">Select Country</option>
+                    <option value="India">India</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                </select>
+                <div class="error" id="permanentCountryError"></div>
+            </div>
+            <div class="col form-group">
+                <label>State:</label>
+                <input type="text" id="permanentState">
+                <div class="error" id="permanentStateError"></div>
+            </div>
+            <div class="col form-group">
+                <label>City:</label>
+                <input type="text" id="permanentCity">
+                <div class="error" id="permanentCityError"></div>
+            </div>
+            <div class="col form-group">
+                <label>Pin Code:</label>
+                <input type="text" id="permanentPincode">
+                <div class="error" id="permanentPincodeError"></div>
+            </div>
+            
+            
+    </div>
+
+    <div class="form-group">
+        <label>Hobbies:</label>
+        <input type="checkbox" name="hobbies" value="Reading" /> Reading
+        <input type="checkbox" name="hobbies" value="Traveling" /> Traveling
+        <input type="checkbox" name="hobbies" value="Sports" /> Sports
+        <input type="checkbox" name="hobbies" value="Music" /> Music
+        <div class="error" id="hobbiesError"></div>
+    </div>
+
+    <div class="form-group">
+        <label>
+            <input type="checkbox" id="terms" /> I accept the Terms and Conditions
+        </label>
+        <div class="error" id="termsError"></div>
+    </div>
+    
+    <button type="submit">Register</button>
+</form>
+
+<script>
+    function copyAddress() {
+    if (document.getElementById("sameAsAbove").checked) {
+        document.getElementById("permanentAddress").value = document.getElementById("presentAddress").value;
+        document.getElementById("permanentCountry").value = document.getElementById("presentCountry").value;
+        document.getElementById("permanentState").value = document.getElementById("presentState").value;
+        document.getElementById("permanentCity").value = document.getElementById("presentCity").value;
+        document.getElementById("permanentPincode").value = document.getElementById("presentPincode").value;
+    } else {
+        document.getElementById("permanentAddress").value = "";
+        document.getElementById("permanentCountry").value = "";
+        document.getElementById("permanentState").value = "";
+        document.getElementById("permanentCity").value = "";
+        document.getElementById("permanentPincode").value = "";
+    }
+}
+function validateForm() {
+    // Clear previous errors
+    document.getElementById("nameError").innerText = "";
+    document.getElementById("emailError").innerText = "";
+    document.getElementById("mobileError").innerText = "";
+    document.getElementById("passwordError").innerText = "";
+    document.getElementById("confirmpasswordError").innerText = "";
+    document.getElementById("genderError").innerText = "";
+    document.getElementById("qualificationError").innerText = "";
+    document.getElementById("presentError").innerText = "";
+    document.getElementById("presentCountryError").innerText = "";
+    document.getElementById("presentStateError").innerText = "";
+    document.getElementById("presentCityError").innerText = "";
+    document.getElementById("presentPincodeError").innerText = "";
+    document.getElementById("permanentError").innerText = "";
+    document.getElementById("permanentCountryError").innerText = "";
+    document.getElementById("permanentStateError").innerText = "";
+    document.getElementById("permanentCityError").innerText = "";
+    document.getElementById("permanentPincodeError").innerText = "";
+    document.getElementById("hobbiesError").innerText = "";
+    document.getElementById("termsError").innerText = "";
+
+    let valid = true;
+
+    // Name validation
+    const name = document.getElementById("fullName").value.trim();
+    if (name === "" || name.length<=5) {
+        document.getElementById("nameError").innerText = "Please enter your full name";
+        valid = false;
+    }
+
+    // ✅ Improved Email validation
+    const email = document.getElementById("email").value.trim();
+    const emailPattern = /^[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$/;
+    if (!emailPattern.test(email)) {
+        document.getElementById("emailError").innerText = "Enter a valid email address";
+        valid = false;
+    }
+
+    // Mobile validation
+    const mobile = document.getElementById("mobile").value.trim();
+    const mobilePattern = /^[6-9]\d{9}$/;
+    if (!mobilePattern.test(mobile)) {
+        document.getElementById("mobileError").innerText = "Enter a valid 10-digit mobile number";
+        valid = false;
+    }
+
+    // Password validation
+    const password = document.getElementById("password").value;
+    if (password.length < 6) {
+        document.getElementById("passwordError").innerText = "Password must be at least 6 characters";
+        valid = false;
+    }
+
+    const confirmpassword=document.getElementById("confirmpassword").value;
+    if(password!==confirmpassword){
+        document.getElementById("confirmpasswordError").innerText = "Password does not match with Confirm Password ";
+        valid = false;
+    }
+    // Gender validation
+    const gender = document.querySelector('input[name="gender"]:checked');
+    if (!gender) {
+        document.getElementById("genderError").innerText = "Please select your gender";
+        valid = false;
+    }
+    const qualification = document.getElementById("qualification").value;
+    if (qualification === "") {
+        document.getElementById("qualificationError").innerText = "Please select your qualification";
+        valid = false;
+    }
+
+    if (document.getElementById("presentAddress").value.trim() === "") {
+        document.getElementById("presentError").innerText = "Please enter present address";
+        valid = false;
+    }
+    if (document.getElementById("presentCountry").value === "") {
+        document.getElementById("presentCountryError").innerText = "Please select country";
+        valid = false;
+    }
+    if (document.getElementById("presentState").value.trim() === "") {
+        document.getElementById("presentStateError").innerText = "Please enter state";
+        valid = false;
+    }
+    if (document.getElementById("presentCity").value.trim() === "") {
+        document.getElementById("presentCityError").innerText = "Please enter city";
+        valid = false;
+    }
+    if (!/^\d{6}$/.test(document.getElementById("presentPincode").value.trim())) {
+        document.getElementById("presentPincodeError").innerText = "Enter valid 6-digit pin code";
+        valid = false;
+    }
+
+    // Validate Permanent Address
+    if (document.getElementById("permanentAddress").value.trim() === "") {
+        document.getElementById("permanentError").innerText = "Please enter permanent address";
+        valid = false;
+    }
+    if (document.getElementById("permanentCountry").value === "") {
+        document.getElementById("permanentCountryError").innerText = "Please select country";
+        valid = false;
+    }
+    if (document.getElementById("permanentState").value.trim() === "") {
+        document.getElementById("permanentStateError").innerText = "Please enter state";
+        valid = false;
+    }
+    if (document.getElementById("permanentCity").value.trim() === "") {
+        document.getElementById("permanentCityError").innerText = "Please enter city";
+        valid = false;
+    }
+    if (!/^\d{6}$/.test(document.getElementById("permanentPincode").value.trim())) {
+        document.getElementById("permanentPincodeError").innerText = "Enter valid 6-digit pin code";
+        valid = false;
+    }
+
+    // Hobbies validation
+    const hobbies = document.querySelectorAll('input[name="hobbies"]:checked');
+    if (hobbies.length === 0) {
+        document.getElementById("hobbiesError").innerText = "Please select at least one hobby";
+        valid = false;
+    }
+
+    // Terms checkbox validation
+    const terms = document.getElementById("terms").checked;
+    if (!terms) {
+        document.getElementById("termsError").innerText = "You must accept the terms and conditions";
+        valid = false;
+    }
+
+    return valid;
+}
+</script>
+
+</body>
+</html>
+
+<!-- Assignments for tomorrow add options like username,password,conformpassword and Address like  permanent address and temporary address and more -->
+<!-- Qualification section -->
+
+

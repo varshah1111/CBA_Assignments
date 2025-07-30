@@ -1,0 +1,159 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>Alert on Button Click</title>
+</head>
+<body>
+  <p id="demo">Loading</p>
+
+  <script>
+    const postdata = document.getElementById("demo");
+    const requestdata={
+        title: '',
+      body: '',
+      userId: 1
+    }
+    fetch("https://jsonplaceholder.typicode.com/todos/1",{
+        method:"POST",
+        headers:{
+            "Content-type":"application/json";
+        },
+        body:JSON.stringify(requestdata);
+    })
+      .then(response => response.json())
+      .then((data) => {
+        postdata.innerHTML = `
+          <ul>
+            <li><strong>id:</strong> ${data.id}</li>
+            <li><strong>title:</strong> ${data.title}</li>
+            <li><strong>completed:</strong> ${data.completed}</li>
+          </ul>
+        `;
+      })
+      .catch(err => console.log("Error:", err));
+  </script>
+</body>
+</html> -->
+<!-- <html>
+<head>
+<title>Alert on Button Click</title>
+ 
+<script>
+const postData={
+	id:0,
+	title:'',
+	body:'',
+	userId:0
+}
+ 
+ 
+fetch("https://jsonplaceholder.typicode.com/photos")
+.then(response => response.json())
+.then(data =>{
+	console.log(data);
+	const list=document.getElementById('responsedata');
+	for(let key in data){
+		const li=document.createElement('li');
+		li.textContent=`${key}:${data[key].title}`;
+		list.appendChild(li);
+	}
+})
+.catch(err => console.log("Error:", err));  
+ 
+ 
+</script>
+</head>
+<body>
+<ul id="responsedata">
+ 
+ 
+</ul>
+ 
+</body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>Photos</title>
+</head>
+<body>
+  <ul id="responsedata"></ul>
+
+  <script>
+    console.log("Start");
+    async function sample(){
+        try{
+       const response = await fetch("https://jsonplaceholder.typicode.com/photos?_limit=10") 
+      .then(response => response.json())
+      .then(data => {
+        const list = document.getElementById('responsedata');
+
+        data.forEach(photo => {
+          const li = document.createElement('li');
+
+          li.innerHTML = `
+            <p><strong>${photo.id}:${photo.title}</strong></p>
+            
+          `;
+
+          list.appendChild(li);
+        });
+      })
+    }
+    catch{
+        console.log("Error:", err) 
+    }
+    //   .catch(err => console.log("Error:", err));
+    
+}
+(async function main(){
+    await sample();
+    console.log("End");
+})();
+  </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Photos</title>
+</head>
+<body>
+  <h2>Photo Gallery</h2>
+  <ul id="responsedata" style="list-style-type: none;"></ul>
+
+  <script>
+    console.log("Start");
+
+    async function sample() {
+      try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/photos?_limit=10");
+        const data = await response.json();
+
+        const list = document.getElementById('responsedata');
+
+        data.forEach(photo => {
+          const li = document.createElement('li');
+          li.style.marginBottom = '20px';
+
+          li.innerHTML = `
+            <p><strong>${photo.id}: ${photo.title}</strong></p>
+            <img src="${photo.thumbnailUrl}" alt="${photo.title}" />
+          `;
+
+          list.appendChild(li);
+        });
+      } catch (err) {
+        console.log("Error:", err);
+      }
+    }
+
+    (async function main() {
+      await sample();
+      console.log("End");
+    })();
+  </script>
+</body>
+</html>
