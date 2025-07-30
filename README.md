@@ -4,7 +4,7 @@
 
 ### 📂Screenshot-1
 <p align="center">
-  <img width="700" alt="Screenshot 2025-07-26 at 8 56 42 PM" src="https://github.com/user-attachments/assets/7d5e2c20-e30b-44cc-bbac-7789c133face" />
+  <img width="700" alt="Screenshot 2025-07-26 at 8 56 42 PM" src="varsha_linux_assignment/Screenshot-2.png" />
 </p>
 
 ###  Screenshot-2
